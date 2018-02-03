@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import { ApiDataService } from '../api-data.service';
+import { HttpModule } from '@angular/http';
 
 @Component({
   selector: 'app-product-search',
@@ -8,9 +10,10 @@ import {Router} from '@angular/router';
 })
 export class ProductSearchComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apiDataService: ApiDataService) { }
 
   ngOnInit() {
+   // console.log(this.dataService.cars);
   }
 
 }
