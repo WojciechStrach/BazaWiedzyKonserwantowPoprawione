@@ -14,5 +14,8 @@ export class ApiDataService {
   searchProduct(search: {search: String}) {
     return this.http.post('http://localhost:3000/search/product', search, httpOptions);
   }
+  searchProductHint(hint: {hint: String}) {
+    return this.http.post('http://localhost:3000/search/product/hint', hint, httpOptions);
+  }
 
 }

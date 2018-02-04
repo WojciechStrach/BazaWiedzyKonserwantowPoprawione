@@ -4,6 +4,7 @@ import { ApiDataService } from '../api-data.service';
 import { HttpModule } from '@angular/http';
 import { ProductSearch } from './product-search.model';
 
+
 @Component({
   selector: 'app-product-search',
   templateUrl: './product-search.component.html',
@@ -37,6 +38,19 @@ export class ProductSearchComponent implements OnInit {
 
   hints(searchInputValue) {
     console.log(searchInputValue);
+    this.apiDataService.searchProductHint({hint: searchInputValue}).subscribe(
+      data => {
+        if (data === null) {
+
+        } else {
+          this.hintsTab = data;
+          return true;
+        }
+       },
+       error => {
+         console.error('Error');
+       }
+);
   }
 
   nullClose() {

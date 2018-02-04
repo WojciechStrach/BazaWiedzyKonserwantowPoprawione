@@ -11,8 +11,10 @@
   </div>
 </div>
 <div class="row">
-    <div class="col-4 text-center">
-        
+    <div class="col-4 text-center" >
+      <div *ngFor="let hint in hintsTab">
+        <button  type="button" class="btn btn-deep-orange waves-light" mdbRippleRadius></button>
+      </div>  
     </div>
     <div class="col-4 text-center">
         <div class="md-form">
