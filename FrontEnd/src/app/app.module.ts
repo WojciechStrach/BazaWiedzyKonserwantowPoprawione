@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProductSearchComponent } from './product-search/product-search.component';
 import { ApiDataService } from './api-data.service';
+import { ProductSearch } from './product-search/product-search.model';
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import { ApiDataService } from './api-data.service';
     AppRoutingModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [ApiDataService, HttpModule, HttpClientModule],
+  providers: [ApiDataService, HttpModule, HttpClientModule, ProductSearch],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

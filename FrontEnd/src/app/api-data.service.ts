@@ -11,10 +11,6 @@ export class ApiDataService {
 
   constructor(private http: HttpClient) { }
 
-  cars = [
-    'Ford', 'Chevrolet', 'Buick'
-  ];
-
   searchProduct(search: {search: String}) {
     return this.http.post('http://localhost:3000/search/product', search, httpOptions);
   }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { ApiDataService } from '../api-data.service';
 import { HttpModule } from '@angular/http';
+import { ProductSearch } from './product-search.model';
 
 @Component({
   selector: 'app-product-search',
@@ -10,10 +11,20 @@ import { HttpModule } from '@angular/http';
 })
 export class ProductSearchComponent implements OnInit {
 
-  constructor(private apiDataService: ApiDataService) { }
+
+
+constructor(private apiDataService: ApiDataService, private productmodel: ProductSearch) { }
 
   ngOnInit() {
-   // console.log(this.dataService.cars);
+    this.apiDataService.searchProduct({search: 'Pepsi Max'}).subscribe(
+            data => {
+               console.log(data);
+               return true;
+             },
+             error => {
+               console.error('Error');
+             }
+    );
   }
 
 }
