@@ -11,20 +11,36 @@ import { ProductSearch } from './product-search.model';
 })
 export class ProductSearchComponent implements OnInit {
 
+  private nullDisplay;
+  private hintsTab;
+  private product: ProductSearch;
 
-
-constructor(private apiDataService: ApiDataService, private productmodel: ProductSearch) { }
+  constructor(private apiDataService: ApiDataService, private productmodel: ProductSearch) { }
 
   ngOnInit() {
-    this.apiDataService.searchProduct({search: 'Pepsi Max'}).subscribe(
+    this.hintsTab = [];
+    this.nullDisplay = 'none';
+    this.apiDataService.searchProduct({search: 'Pepsi'}).subscribe(
             data => {
-               console.log(data);
-               return true;
+              if (data === null) {
+                this.nullDisplay = 'block';
+              } else {
+                console.log(data);
+                return true;
+              }
              },
              error => {
                console.error('Error');
              }
     );
+  }
+
+  hints(searchInputValue) {
+    console.log(searchInputValue);
+  }
+
+  nullClose() {
+    this.nullDisplay = 'none';
   }
 
 }
