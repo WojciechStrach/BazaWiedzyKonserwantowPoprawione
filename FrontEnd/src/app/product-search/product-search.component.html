@@ -12,20 +12,21 @@
 </div>
 <div class="row">
     <div class="col-4 text-center" >
-      <div *ngFor="let hint in hintsTab">
-        <button  type="button" class="btn btn-deep-orange waves-light" mdbRippleRadius></button>
-      </div>  
+        <button *ngFor="let hint of hintsTab" type="button" class="btn btn-deep-orange waves-light btn-sm" mdbRippleRadius (click)="hintCompleter(hint)" >{{hint}}</button>  
     </div>
     <div class="col-4 text-center">
         <div class="md-form">
-            <input mdbActive type="text" id="form41" class="form-control" (keyup)="hints(searchInput.value)" #searchInput>
+            <input [(ngModel)]='inputValue' mdbActive type="text" id="form41" class="form-control" (keyup)="hints(searchInput.value)" #searchInput>
             <label for="form41" class="">Wprowadź nazwę produktu np: Pepsi Max</label>
         </div>
     </div>
     <div class="col-4 text-center">
         <button type="button" class="btn btn-deep-orange waves-light" mdbRippleRadius>Szukaj</button>
     </div>
-  </div>
+</div>
+<div class="row">
+    <div class="col-12">chuj</div>
+</div>
 
 
 <div class="text-center card" [ngStyle]="{'display':nullDisplay}">

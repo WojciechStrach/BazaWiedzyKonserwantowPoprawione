@@ -12,13 +12,15 @@ import { ProductSearch } from './product-search.model';
 })
 export class ProductSearchComponent implements OnInit {
 
-  private nullDisplay;
-  private hintsTab;
-  private product: ProductSearch;
+  protected inputValue;
+  protected nullDisplay;
+  protected hintsTab;
+  protected product: ProductSearch;
 
   constructor(private apiDataService: ApiDataService, private productmodel: ProductSearch) { }
 
   ngOnInit() {
+    this.inputValue = '';
     this.hintsTab = [];
     this.nullDisplay = 'none';
     this.apiDataService.searchProduct({search: 'Pepsi'}).subscribe(
@@ -37,20 +39,23 @@ export class ProductSearchComponent implements OnInit {
   }
 
   hints(searchInputValue) {
-    console.log(searchInputValue);
     this.apiDataService.searchProductHint({hint: searchInputValue}).subscribe(
       data => {
         if (data === null) {
 
         } else {
-          this.hintsTab = data;
+          this.hintsTab = data['hints'];
           return true;
         }
        },
        error => {
          console.error('Error');
        }
-);
+    );
+  }
+
+  hintCompleter(hintText) {
+    this.inputValue = hintText;
   }
 
   nullClose() {
