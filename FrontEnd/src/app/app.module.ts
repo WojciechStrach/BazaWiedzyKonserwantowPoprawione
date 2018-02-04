@@ -14,6 +14,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ProductSearchComponent } from './product-search/product-search.component';
 import { ApiDataService } from './api-data.service';
 import { ProductSearch } from './product-search/product-search.model';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -27,6 +28,8 @@ import { ProductSearch } from './product-search/product-search.model';
   imports: [
     HttpClientModule,
     HttpModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     MDBBootstrapModule.forRoot(),
     AppRoutingModule

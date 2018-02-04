@@ -16,7 +16,7 @@
     </div>
     <div class="col-4 text-center">
         <div class="md-form">
-            <input [(ngModel)]='inputValue' mdbActive type="text" id="form41" class="form-control" (keyup)="hints(searchInput.value)" #searchInput>
+            <input [(ngModel)]="inputValue" #ctrl="ngModel" mdbActive type="text" id="form41" class="form-control" (keyup)="hints(searchInput.value)" #searchInput required>
             <label for="form41" class="">Wprowadź nazwę produktu np: Pepsi Max</label>
         </div>
     </div>
