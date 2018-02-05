@@ -20,22 +20,16 @@ export class ProductSearchComponent implements OnInit {
   constructor(private apiDataService: ApiDataService, private productmodel: ProductSearch) { }
 
   ngOnInit() {
+    this.product = new ProductSearch();
+    this.product.productPictureUrl = '';
+    this.product.productName = '';
+    this.product.productType = '';
+    this.product.productOwner = '';
+    this.product.diseases = [];
+    this.product.preservatives = [];
     this.inputValue = '';
     this.hintsTab = [];
     this.nullDisplay = 'none';
-    this.apiDataService.searchProduct({search: 'Pepsi'}).subscribe(
-            data => {
-              if (data === null) {
-                this.nullDisplay = 'block';
-              } else {
-                console.log(data);
-                return true;
-              }
-             },
-             error => {
-               console.error('Error');
-             }
-    );
   }
 
   hints(searchInputValue) {
@@ -60,6 +54,33 @@ export class ProductSearchComponent implements OnInit {
 
   nullClose() {
     this.nullDisplay = 'none';
+  }
+
+  productSearch() {
+
+    this.apiDataService.searchProduct({search: this.inputValue}).subscribe(
+      data => {
+        if (data === null) {
+          this.nullDisplay = 'block';
+        } else {
+          this.product.productName = data['productName'];
+          this.product.productPictureUrl = data['productPictureUrl'];
+          this.product.preservatives = data['preservatives'];
+          this.product.diseases = data['diseases'];
+          this.product.productOwner = data['productOwner'];
+          this.product.productType = data['productType'];
+          return true;
+        }
+       },
+       error => {
+         console.error('Error');
+       }
+  );
+
+  }
+
+  preservativeDetails() {
+
   }
 
 }

@@ -1,32 +1,76 @@
 
 <div class="row">
-  <div class="col-4 text-center">
-      <h2>Produkty pasujące do podanej frazy</h2>      
-  </div>
-  <div class="col-4 text-center">
+  <div class="col-md-12 text-center">
       <h2>Wyszukiwarka produktów</h2>
-  </div>
-  <div class="col-4 text-center">
-        
   </div>
 </div>
 <div class="row">
-    <div class="col-4 text-center" >
-        <button *ngFor="let hint of hintsTab" type="button" class="btn btn-deep-orange waves-light btn-sm" mdbRippleRadius (click)="hintCompleter(hint)" >{{hint}}</button>  
-    </div>
-    <div class="col-4 text-center">
+    <div class="col-md-6 text-center paddingLeft">
         <div class="md-form">
             <input [(ngModel)]="inputValue" #ctrl="ngModel" mdbActive type="text" id="form41" class="form-control" (keyup)="hints(searchInput.value)" #searchInput required>
             <label for="form41" class="">Wprowadź nazwę produktu np: Pepsi Max</label>
         </div>
     </div>
-    <div class="col-4 text-center">
-        <button type="button" class="btn btn-deep-orange waves-light" mdbRippleRadius>Szukaj</button>
+    <div class="col-md-6 text-center">
+        <button type="button" (click)="productSearch()" class="btn btn-deep-orange waves-light" mdbRippleRadius>Szukaj</button>
     </div>
 </div>
 <div class="row">
-    <div class="col-12">chuj</div>
+    <div class="col-md-12 text-center paddingTop" >
+        <h2>Produkty pasujące do podanej frazy</h2>      
+    </div>
 </div>
+<div class="row">
+    <div class="col-md-12 text-center" >
+        <button *ngFor="let hint of hintsTab" type="button" class="btn btn-deep-orange waves-light btn-sm" mdbRippleRadius (click)="hintCompleter(hint)" >{{hint}}</button>  
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 text-center paddingTop" >
+        <h2>Wynik wyszukiwania</h2>
+    </div>
+</div>
+
+<div class="row text-center">
+    <div class="col-md-4 text-center searchTop">
+        <img [src]="product.productPictureUrl" class="imgSize img-fluid" alt="">
+    </div>
+    <div class="col-md-4 text-center searchTop">
+        <div class="col-md-12 paddingTop">
+            <h4>Nazwa produktu</h4>
+        </div>
+        <div class="col-md-12 paddingTop">
+            <h5>{{product.productName}}</h5>
+        </div>
+        <div class="col-md-12 paddingTop">
+            <h4>Typ produktu</h4>
+        </div>
+        <div class="col-md-12 paddingTop">
+            <h5>{{product.productType}}</h5>
+        </div>
+        <div class="col-md-12 paddingTop">
+            <h4>Producent</h4>
+        </div>
+        <div class="col-md-12 paddingTop">
+            <h5>{{product.productOwner}}</h5>
+        </div>
+    </div>
+    <div class="col-md-4 text-center searchTop">
+        <div class="col-md-12 paddingTop">
+            <h4>Chemiczne dodatki i konserwanty zawarte w produkcie</h4>
+        </div>
+        <div class="col-md-12 paddingTop">
+            <button *ngFor="let preservative of product.preservatives" type="button" (click)="preservativesDetails()" class="btn btn-deep-orange waves-light btn-sm" mdbRippleRadius>{{preservative.Oznaczenie}}</button>
+        </div>
+        <div class="col-md-12 paddingTop">
+            <h4>Choroby i dolegliwości jakie mogą powodować konserwanty i dodatki chemiczne zawarte w produkcie</h4>
+        </div>
+        <div class="col-md-12 paddingTop">
+            <button *ngFor="let disease of product.diseases" type="button" class="btn btn-deep-orange waves-light btn-sm" mdbRippleRadius>{{disease}}</button>
+        </div>
+    </div>
+</div>
+
 
 
 <div class="text-center card" [ngStyle]="{'display':nullDisplay}">

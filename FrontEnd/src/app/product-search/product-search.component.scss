@@ -5,6 +5,41 @@
 }
 
 h2 {
-    padding: 3%;
+    padding-top: 2%;
+    padding-bottom: 5%;
+    font-weight: bold;
+}
+
+.padding{
+    padding-bottom: 3%;
+}
+
+.imgSize{
+    max-width: 100%; 
+    height: auto;
+}
+
+.paddingTop{
+    padding-top: 3%;
+}
+
+.paddingLeft{
+    padding-left: 5%;
+}
+
+input[type=text]:focus:not([readonly]) + label {
+    color: #ff5722; 
+}
+
+input[type=text]:focus:not([readonly]) {
+    border-bottom: 1px solid #ff5722;
+    box-shadow: 0 1px 0 0 #ff5722; 
+}
+
+.searchPadding{
+    padding-top: 7%;
+}
+
+h4{
     font-weight: bold;
 }

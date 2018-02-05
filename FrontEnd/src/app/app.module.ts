@@ -15,6 +15,7 @@ import { ProductSearchComponent } from './product-search/product-search.componen
 import { ApiDataService } from './api-data.service';
 import { ProductSearch } from './product-search/product-search.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -24,6 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     NavbarComponent,
     ProductSearchComponent,
+    FooterComponent,
   ],
   imports: [
     HttpClientModule,
