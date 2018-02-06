@@ -1,14 +1,14 @@
 
 <div class="row">
   <div class="col-md-12 text-center">
-      <h2>Wyszukiwarka chemicznych dodatków do żywności</h2>
+      <h2>Wyszukiwarka dodatków do żywności</h2>
   </div>
 </div>
 <div class="row">
     <div class="col-md-6 text-center paddingLeft">
         <div class="md-form">
             <input [(ngModel)]="inputValue" #ctrl="ngModel" mdbActive type="text" id="form41" class="form-control" (keyup)="hints(searchInput.value)" #searchInput required>
-            <label for="form41" class="">Wprowadź nazwę produktu np: Pepsi Max</label>
+            <label for="form41" class="">Wprowadź oznaczenie dodatku do żywności np. E290</label>
         </div>
     </div>
     <div class="col-md-6 text-center">
@@ -17,12 +17,12 @@
 </div>
 <div class="row">
     <div class="col-md-12 text-center paddingTop" >
-        <h2>Chemiczne dodatki do żywności pasujące do podanej frazy</h2>      
+        <h2>Dodatki do żywności pasujące do podanej frazy</h2>      
     </div>
 </div>
 <div class="row">
     <div class="col-md-12 text-center" >
-        <button *ngFor="let hint of hintsTab" type="button" class="btn btn-primary waves-light btn-sm" mdbRippleRadius (click)="hintCompleter(hint)" >{{hint}}</button>  
+        <button *ngFor="let preservativesHint of hintsPreservativesTab" type="button" class="btn btn-primary waves-light btn-sm" mdbRippleRadius (click)="hintCompleter(preservativesHint)" >{{preservativesHint}}</button>  
     </div>
 </div>
 <div class="row">
@@ -33,42 +33,41 @@
 
 <div class="row text-center">
     <div class="col-md-4 text-center searchTop">
-        <img [src]="product.productPictureUrl" class="imgSize img-fluid" alt="">
-    </div>
-    <div class="col-md-4 text-center searchTop">
         <div class="col-md-12 paddingTop">
-            <h4>Nazwa produktu</h4>
+            <h4>Oznaczenie dodatku do żywności</h4>
         </div>
         <div class="col-md-12 paddingTop">
-            <h5>{{product.productName}}</h5>
+            <h5>{{preservative.preservativeSign}}</h5>
         </div>
         <div class="col-md-12 paddingTop">
-            <h4>Typ produktu</h4>
+            <h4>Nazwa zwyczajowa dodatku do żywności</h4>
         </div>
         <div class="col-md-12 paddingTop">
-            <h5>{{product.productType}}</h5>
+            <h5>{{preservative.preservativeCommonName}}</h5>
         </div>
         <div class="col-md-12 paddingTop">
-            <h4>Producent</h4>
+            <h4>Typ dodatku do żywności</h4>
         </div>
         <div class="col-md-12 paddingTop">
-            <h5>{{product.productOwner}}</h5>
+            <h5>{{preservative.preservativeType}}</h5>
         </div>
     </div>
     <div class="col-md-4 text-center searchTop">
         <div class="col-md-12 paddingTop">
-            <h4>Chemiczne dodatki i konserwanty zawarte w produkcie</h4>
+            <h4>Choroby i dolegliwości jakie może wywoływać dodatek</h4>
         </div>
         <div class="col-md-12 paddingTop">
-            <button *ngFor="let preservative of product.preservatives" type="button" (click)="preservativesDetails(preservative.Nazwa_zwyczajowa, preservative.Opis)" class="btn btn-deep-orange waves-light btn-sm" mdbRippleRadius>{{preservative.Oznaczenie}}</button>
-        </div>
-        <div class="col-md-12 paddingTop">
-            <h4>Choroby i dolegliwości jakie mogą powodować konserwanty i dodatki chemiczne zawarte w produkcie</h4>
-        </div>
-        <div class="col-md-12 paddingTop">
-            <button *ngFor="let disease of product.diseases" type="button" class="btn btn-deep-orange waves-light btn-sm" mdbRippleRadius>{{disease}}</button>
+            <button *ngFor="let disease of preservative.preservativeDiseases" type="button" class="btn btn-primary waves-light btn-sm" mdbRippleRadius>{{disease}}</button>
         </div>
     </div>
+    <div class="col-md-4 text-center searchTop">
+        <div class="col-md-12 paddingTop">
+            <h4>Produkty zawierające dodatek</h4>
+        </div>
+        <div class="col-md-12 paddingTop">
+            <button *ngFor="let product of preservative.preservativeProducts" type="button" class="btn btn-primary waves-light btn-sm" mdbRippleRadius>{{product}}</button>
+        </div>
+    </div>    
 </div>
 
 
@@ -92,7 +91,7 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-center">
-                <a type="button" class="btn btn-deep-orange waves-light" data-dismiss="modal" (click)="style.hide()" mdbRippleRadius>Zamknij</a>
+                <a type="button" class="btn btn-primary waves-light" data-dismiss="modal" (click)="style.hide()" mdbRippleRadius>Zamknij</a>
             </div>
         </div>
     </div>

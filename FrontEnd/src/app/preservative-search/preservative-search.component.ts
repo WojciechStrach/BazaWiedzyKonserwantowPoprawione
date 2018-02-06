@@ -13,13 +13,13 @@ export class PreservativeSearchComponent implements OnInit {
 
   protected inputValue;
   protected preservative: PreservativeModel;
-  protected hintsTab;
+  protected hintsPreservativesTab;
 
   constructor(private apiDataService: ApiDataService, private preservativeModel: PreservativeModel ) { }
 
   ngOnInit() {
     this.inputValue = '';
-    this.hintsTab = [];
+    this.hintsPreservativesTab = [];
     this.preservative = new PreservativeModel;
     this.preservative.preservativeCommonName = '';
     this.preservative.preservativeDescribe = '';
@@ -35,7 +35,7 @@ export class PreservativeSearchComponent implements OnInit {
         if (data === null) {
 
         } else {
-          this.hintsTab = data['hints'];
+          this.hintsPreservativesTab = data['hints'];
           return true;
         }
        },
@@ -56,7 +56,12 @@ export class PreservativeSearchComponent implements OnInit {
         if (data === null) {
           document.getElementById('openModalButton').click();
         } else {
-
+          this.preservative.preservativeCommonName = data['preservativeCommonName'];
+          this.preservative.preservativeSign = data['preservativeSign'];
+          this.preservative.preservativeDescribe = data['preservativeDescribe'];
+          this.preservative.preservativeType = data['preservativeType'];
+          this.preservative.preservativeDiseases = data['preservativeDiseases'];
+          this.preservative.preservativeProducts = data['preservativeProducts'];
           return true;
         }
        },
