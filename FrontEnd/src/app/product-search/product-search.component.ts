@@ -29,7 +29,6 @@ export class ProductSearchComponent implements OnInit {
     this.product.preservatives = [];
     this.inputValue = '';
     this.hintsTab = [];
-    this.nullDisplay = 'none';
   }
 
   hints(searchInputValue) {
@@ -61,7 +60,7 @@ export class ProductSearchComponent implements OnInit {
     this.apiDataService.searchProduct({search: this.inputValue}).subscribe(
       data => {
         if (data === null) {
-          this.nullDisplay = 'block';
+          document.getElementById('openModalButton').click();
         } else {
           this.product.productName = data['productName'];
           this.product.productPictureUrl = data['productPictureUrl'];
@@ -79,8 +78,8 @@ export class ProductSearchComponent implements OnInit {
 
   }
 
-  preservativeDetails() {
-
+  preservativeDetails(preservativeSign) {
+    
   }
 
 }
