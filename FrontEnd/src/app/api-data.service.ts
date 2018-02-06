@@ -18,4 +18,10 @@ export class ApiDataService {
     return this.http.post('http://localhost:3000/search/product/hint', hint, httpOptions);
   }
 
+  searchPreservative(search: {search: String}) {
+    return this.http.post('http://localhost:3000/search/preservative', search, httpOptions);
+  }
+  searchPreservativeHint(hint: {hint: String}) {
+    return this.http.post('http://localhost:3000/search/preservative/hint', hint, httpOptions);
+  }
 }

@@ -1,7 +1,7 @@
 
 <div class="row">
   <div class="col-md-12 text-center">
-      <h2>Wyszukiwarka produktów</h2>
+      <h2>Wyszukiwarka chemicznych dodatków do żywności</h2>
   </div>
 </div>
 <div class="row">
@@ -12,17 +12,17 @@
         </div>
     </div>
     <div class="col-md-6 text-center">
-        <button type="button" (click)="productSearch()" class="btn btn-deep-orange waves-light" mdbRippleRadius>Szukaj</button>
+        <button type="button" (click)="preservativeSearch()" class="btn btn-primary waves-light" mdbRippleRadius>Szukaj</button>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12 text-center paddingTop" >
-        <h2>Produkty pasujące do podanej frazy</h2>      
+        <h2>Chemiczne dodatki do żywności pasujące do podanej frazy</h2>      
     </div>
 </div>
 <div class="row">
     <div class="col-md-12 text-center" >
-        <button *ngFor="let hint of hintsTab" type="button" class="btn btn-deep-orange waves-light btn-sm" mdbRippleRadius (click)="hintCompleter(hint)" >{{hint}}</button>  
+        <button *ngFor="let hint of hintsTab" type="button" class="btn btn-primary waves-light btn-sm" mdbRippleRadius (click)="hintCompleter(hint)" >{{hint}}</button>  
     </div>
 </div>
 <div class="row">
@@ -78,7 +78,7 @@
     <div class="modal-dialog modal-notify modal-warning" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <p class="heading lead">Nie znaleziono produktu</p>
+                <p class="heading lead">Nie znaleziono dodatku do żywności</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="style.hide()">
                     <span aria-hidden="true" class="white-text">×</span>
                 </button>
@@ -86,7 +86,7 @@
             <div class="modal-body">
                 <div class="text-center">
                     <i class="fa fa-check fa-4x mb-3 animated rotateIn"></i>
-                    <p>Nie udało nam się znaleźć produktu pasującego do szukanej frazy, być może nie ma go jeszcze w naszej bazie lub jego pisownia jest 
+                    <p>Nie udało nam się znaleźć konserwantu, chemicznego dodatku do żywności, być może nie ma go jeszcze w naszej bazie lub jego pisownia jest 
                         niepoprawna. Sprawdź sugestie dotyczące szukanej frazy oraz pisownię a następnie spróbuj ponowie.
                     </p>
                 </div>
@@ -98,26 +98,6 @@
     </div>
 </div>
 
-<button id="preservativeDetailsButton" type="button" [hidden]="true" class="btn btn-primary waves-light" data-toggle="modal" data-target="#detailsModal" (click)="detailsModal.show()" mdbRippleRadius></button>
 
-<div mdbModal #detailsModal="mdb-modal" class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title w-100" id="myModalLabel">{{preservativeDetailsCommonName}}</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="detailsModal.hide()">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                {{preservativeDetailsDescription}}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-deep-orange waves-light" data-dismiss="modal" (click)="detailsModal.hide()" mdbRippleRadius>Zamknij</button>
-            </div>
-        </div>
-    </div>
-</div>
          
-             
-
+      

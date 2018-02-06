@@ -16,6 +16,8 @@ export class ProductSearchComponent implements OnInit {
   protected nullDisplay;
   protected hintsTab;
   protected product: ProductSearch;
+  protected preservativeDetailsCommonName;
+  protected preservativeDetailsDescription;
 
   constructor(private apiDataService: ApiDataService, private productmodel: ProductSearch) { }
 
@@ -29,6 +31,8 @@ export class ProductSearchComponent implements OnInit {
     this.product.preservatives = [];
     this.inputValue = '';
     this.hintsTab = [];
+    this.preservativeDetailsCommonName = '';
+    this.preservativeDetailsDescription = '';
   }
 
   hints(searchInputValue) {
@@ -78,8 +82,10 @@ export class ProductSearchComponent implements OnInit {
 
   }
 
-  preservativeDetails(preservativeSign) {
-    
+  preservativesDetails(preservativeCommonName, preservativeDescription) {
+    this.preservativeDetailsCommonName = preservativeCommonName;
+    this.preservativeDetailsDescription = preservativeDescription;
+    document.getElementById('preservativeDetailsButton').click();
   }
 
 }

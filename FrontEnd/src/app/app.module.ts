@@ -14,8 +14,10 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ProductSearchComponent } from './product-search/product-search.component';
 import { ApiDataService } from './api-data.service';
 import { ProductSearch } from './product-search/product-search.model';
+import { PreservativeModel } from './preservative-search/preservative-search.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
+import { PreservativeSearchComponent } from './preservative-search/preservative-search.component';
 
 
 
@@ -26,6 +28,7 @@ import { FooterComponent } from './footer/footer.component';
     NavbarComponent,
     ProductSearchComponent,
     FooterComponent,
+    PreservativeSearchComponent,
   ],
   imports: [
     HttpClientModule,
@@ -37,7 +40,7 @@ import { FooterComponent } from './footer/footer.component';
     AppRoutingModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [ApiDataService, HttpModule, HttpClientModule, ProductSearch],
+  providers: [ApiDataService, HttpModule, HttpClientModule, ProductSearch, PreservativeModel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
