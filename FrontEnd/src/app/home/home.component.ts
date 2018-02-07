@@ -8,9 +8,12 @@ import {Router} from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  protected eList;
+
   constructor(private router: Router) { }
 
   ngOnInit() {
+    this.eList = require('../sources/listae.png');
   }
 
 }
