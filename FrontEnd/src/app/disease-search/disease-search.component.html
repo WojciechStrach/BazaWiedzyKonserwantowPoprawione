@@ -12,7 +12,7 @@
           </div>
       </div>
       <div class="col-md-6 text-center">
-          <button type="button" (click)="preservativeSearch()" class="btn btn-succes waves-light" mdbRippleRadius>Szukaj</button>
+          <button type="button" (click)="preservativeSearch()" class="btn btn-success waves-light" mdbRippleRadius>Szukaj</button>
       </div>
   </div>
   <div class="row">
@@ -22,7 +22,7 @@
   </div>
   <div class="row">
       <div class="col-md-12 text-center" >
-          <button *ngFor="let preservativesHint of hintsPreservativesTab" type="button" class="btn btn-succes waves-light btn-sm" mdbRippleRadius (click)="hintCompleter(preservativesHint)" >{{preservativesHint}}</button>  
+          <button *ngFor="let preservativesHint of hintsPreservativesTab" type="button" class="btn btn-success waves-light btn-sm" mdbRippleRadius (click)="hintCompleter(preservativesHint)" >{{preservativesHint}}</button>  
       </div>
   </div>
   <div class="row">
@@ -33,57 +33,33 @@
   
   <div class="row text-center">
       <div class="col-md-4 text-center searchTop">
-          <div class="col-md-12 paddingTop">
+          <div class="col-md-12 ">
               <h4>Nazwa choroby lub dolegliwości</h4>
           </div>
           <div class="col-md-12 paddingTop">
-              <div *ngIf="preservative.preservativeSign != ''">
-                  <button type="button" class="btn btn-primary waves-light" mdbRippleRadius>{{preservative.preservativeSign}}</button>
+              <div *ngIf="disease.diseaseName != checker">
+                  <button type="button" class="btn btn-success waves-light" mdbRippleRadius>{{disease.diseaseName}}</button>
               </div>
           </div>
-          <div class="col-md-12 paddingTop">
-              <h4>Nazwa zwyczajowa dodatku do żywności</h4>
-          </div>
-          <div class="col-md-12 paddingTop">
-              <div *ngIf="preservative.preservativeCommonName != ''">
-                  <button type="button" class="btn btn-primary waves-light" mdbRippleRadius>{{preservative.preservativeCommonName}}</button>
-              </div>
-          </div>
-          <div class="col-md-12 paddingTop">
-              <h4>Typ dodatku do żywności</h4>
-          </div>
-          <div class="col-md-12 paddingTop">
-              <div *ngIf="preservative.preservativeType != ''">
-                  <button type="button" class="btn btn-primary waves-light" mdbRippleRadius>{{preservative.preservativeType}}</button>
-              </div>
-          </div>
-      </div>
-      <div class="col-md-4 text-center searchTop">
-          <div class="col-md-12 paddingTop">
-              <h4>Choroby i dolegliwości jakie może wywoływać dodatek</h4>
-          </div>
-          <div class="col-md-12 paddingTop">
-              <button *ngFor="let disease of preservative.preservativeDiseases" type="button" class="btn btn-primary waves-light btn-sm" mdbRippleRadius>{{disease}}</button>
-          </div>
-      </div>
-      <div class="col-md-4 text-center searchTop">
-          <div class="col-md-12 paddingTop">
-              <h4>Produkty zawierające dodatek</h4>
-          </div>
-          <div class="col-md-12 paddingTop">
-              <button *ngFor="let product of preservative.preservativeProducts" type="button" class="btn btn-primary waves-light btn-sm" mdbRippleRadius>{{product}}</button>
-          </div>
-      </div>    
+      </div> 
+      <div class="col-md-8 text-center searchTop">
+        <div class="col-md-12 ">
+            <h4>Dodatki do żywności mogące wywołać daną chorobę lub dolegliwość</h4>
+        </div>
+        <div class="col-md-12 paddingTop">
+            <button *ngFor="let preservative of disease.diseasePreservatives" type="button" (click)="preservativesDetails(preservative.NazwaZwyczajowa, preservative.Opis)" class="btn btn-success waves-light btn-sm" mdbRippleRadius>{{preservative.Oznaczenie}}</button>
+        </div>
+      </div>   
   </div>
   
   
   <button id="openModalButton" [hidden]="true" type="button" class="btn btn-primary waves-light" data-target="#centralModalSucces" (click)="style.show()" mdbRippleRadius></button>
   
   <div mdbModal #style="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-notify modal-info" role="document">
+      <div class="modal-dialog modal-notify modal-success" role="document">
           <div class="modal-content">
               <div class="modal-header">
-                  <p class="heading lead">Nie znaleziono dodatku do żywności</p>
+                  <p class="heading lead">Nie znaleziono choroby lub dolegliwości</p>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="style.hide()">
                       <span aria-hidden="true" class="white-text">×</span>
                   </button>
@@ -91,17 +67,38 @@
               <div class="modal-body">
                   <div class="text-center">
                       <i class="fa fa-check fa-4x mb-3 animated rotateIn"></i>
-                      <p>Nie udało nam się znaleźć dodatku do żywności, być może nie ma go jeszcze w naszej bazie lub jego pisownia jest 
+                      <p>Nie udało nam się znaleźć żadnej choroby lub dolegliwości pasującej do szukanej frazy, być może nie ma go jeszcze w naszej bazie lub jego pisownia jest 
                           niepoprawna. Sprawdź sugestie dotyczące szukanej frazy oraz pisownię a następnie spróbuj ponowie.
                       </p>
                   </div>
               </div>
               <div class="modal-footer justify-content-center">
-                  <a type="button" class="btn btn-primary waves-light" data-dismiss="modal" (click)="style.hide()" mdbRippleRadius>Zamknij</a>
+                  <a type="button" class="btn btn-success waves-light" data-dismiss="modal" (click)="style.hide()" mdbRippleRadius>Zamknij</a>
               </div>
           </div>
       </div>
   </div>
+
+  <button id="preservativeDetailsButton" type="button" [hidden]="true" class="btn btn-primary waves-light" data-toggle="modal" data-target="#detailsModal" (click)="detailsModal.show()" mdbRippleRadius></button>
+
+    <div mdbModal #detailsModal="mdb-modal" class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title w-100" id="myModalLabel">{{preservativeDetailsCommonName}}</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="detailsModal.hide()">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{preservativeDetailsDescription}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success waves-light" data-dismiss="modal" (click)="detailsModal.hide()" mdbRippleRadius>Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
   
   
            

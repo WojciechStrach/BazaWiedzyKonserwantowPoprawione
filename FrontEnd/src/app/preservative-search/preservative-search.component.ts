@@ -14,6 +14,7 @@ export class PreservativeSearchComponent implements OnInit {
   protected inputValue;
   protected preservative: PreservativeModel;
   protected hintsPreservativesTab;
+  protected checker: String;
 
   constructor(private apiDataService: ApiDataService, private preservativeModel: PreservativeModel ) { }
 
@@ -27,6 +28,7 @@ export class PreservativeSearchComponent implements OnInit {
     this.preservative.preservativeType = '';
     this.preservative.preservativeDiseases = [];
     this.preservative.preservativeProducts = [];
+    this.checker = '';
   }
 
   hints(searchInputValue) {

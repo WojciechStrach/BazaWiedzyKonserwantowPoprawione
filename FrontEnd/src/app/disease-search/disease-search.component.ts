@@ -14,14 +14,21 @@ export class DiseaseSearchComponent implements OnInit {
   protected inputValue;
   protected disease: DiseaseModel;
   protected hintsPreservativesTab;
+  protected checker: String;
+  protected preservativeDetailsCommonName;
+  protected preservativeDetailsDescription;
 
   constructor(private apiDataService: ApiDataService) { }
 
   ngOnInit() {
     this.inputValue = '';
     this.hintsPreservativesTab = [];
+    this.disease = new DiseaseModel();
     this.disease.diseaseName = '';
     this.disease.diseasePreservatives = [];
+    this.checker = '';
+    this.preservativeDetailsCommonName = '';
+    this.preservativeDetailsDescription = '';
   }
 
   hints(searchInputValue) {
@@ -61,6 +68,12 @@ export class DiseaseSearchComponent implements OnInit {
        }
   );
 
+  }
+
+  preservativesDetails(preservativeCommonName, preservativeDescription) {
+    this.preservativeDetailsCommonName = preservativeCommonName;
+    this.preservativeDetailsDescription = preservativeDescription;
+    document.getElementById('preservativeDetailsButton').click();
   }
 
 }
