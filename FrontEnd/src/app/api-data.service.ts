@@ -24,4 +24,11 @@ export class ApiDataService {
   searchPreservativeHint(hint: {hint: String}) {
     return this.http.post('http://localhost:3000/search/preservative/hint', hint, httpOptions);
   }
+
+  searchDisease(search: {search: String}) {
+    return this.http.post('http://localhost:3000/search/disease', search, httpOptions);
+  }
+  searchDiseaseHint(hint: {hint: String}) {
+    return this.http.post('http://localhost:3000/search/disease/hint', hint, httpOptions);
+  }
 }

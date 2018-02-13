@@ -4,6 +4,7 @@ import { ProductSearchComponent } from './product-search/product-search.componen
 import { HomeComponent } from './home/home.component';
 import { Component } from '@angular/core/src/metadata/directives';
 import { PreservativeSearchComponent } from './preservative-search/preservative-search.component';
+import { DiseaseSearchComponent } from './disease-search/disease-search.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'search/preservative',
     component: PreservativeSearchComponent
+  },
+  {
+    path: 'search/disease',
+    component: DiseaseSearchComponent
   }
 ];
 

@@ -18,6 +18,7 @@ import { PreservativeModel } from './preservative-search/preservative-search.mod
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { PreservativeSearchComponent } from './preservative-search/preservative-search.component';
+import { DiseaseSearchComponent } from './disease-search/disease-search.component';
 
 
 
@@ -29,6 +30,7 @@ import { PreservativeSearchComponent } from './preservative-search/preservative-
     ProductSearchComponent,
     FooterComponent,
     PreservativeSearchComponent,
+    DiseaseSearchComponent,
   ],
   imports: [
     HttpClientModule,

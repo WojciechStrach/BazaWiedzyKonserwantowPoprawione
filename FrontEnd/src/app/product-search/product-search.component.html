@@ -40,19 +40,25 @@
             <h4>Nazwa produktu</h4>
         </div>
         <div class="col-md-12 paddingTop">
-            <h5>{{product.productName}}</h5>
+            <div *ngIf="product.productName != ''">
+                <button type="button" class="btn btn-deep-orange waves-light" mdbRippleRadius>{{product.productName}}</button>
+            </div>
         </div>
         <div class="col-md-12 paddingTop">
             <h4>Typ produktu</h4>
         </div>
         <div class="col-md-12 paddingTop">
-            <h5>{{product.productType}}</h5>
+            <div *ngIf="product.productType != ''">
+                <button type="button" class="btn btn-deep-orange waves-light" mdbRippleRadius>{{product.productType}}</button>
+            </div>
         </div>
         <div class="col-md-12 paddingTop">
             <h4>Producent</h4>
         </div>
         <div class="col-md-12 paddingTop">
-            <h5>{{product.productOwner}}</h5>
+            <div *ngIf="product.productOwner != ''">
+                <button type="button" class="btn btn-deep-orange waves-light" mdbRippleRadius>{{product.productOwner}}</button>
+            </div>
         </div>
     </div>
     <div class="col-md-4 text-center searchTop">

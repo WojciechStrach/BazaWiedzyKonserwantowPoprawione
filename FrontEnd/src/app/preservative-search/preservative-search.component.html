@@ -37,19 +37,25 @@
             <h4>Oznaczenie dodatku do żywności</h4>
         </div>
         <div class="col-md-12 paddingTop">
-            <h5>{{preservative.preservativeSign}}</h5>
+            <div *ngIf="preservative.preservativeSign != ''">
+                <button type="button" class="btn btn-primary waves-light" mdbRippleRadius>{{preservative.preservativeSign}}</button>
+            </div>
         </div>
         <div class="col-md-12 paddingTop">
             <h4>Nazwa zwyczajowa dodatku do żywności</h4>
         </div>
         <div class="col-md-12 paddingTop">
-            <h5>{{preservative.preservativeCommonName}}</h5>
+            <div *ngIf="preservative.preservativeCommonName != ''">
+                <button type="button" class="btn btn-primary waves-light" mdbRippleRadius>{{preservative.preservativeCommonName}}</button>
+            </div>
         </div>
         <div class="col-md-12 paddingTop">
             <h4>Typ dodatku do żywności</h4>
         </div>
         <div class="col-md-12 paddingTop">
-            <h5>{{preservative.preservativeType}}</h5>
+            <div *ngIf="preservative.preservativeType != ''">
+                <button type="button" class="btn btn-primary waves-light" mdbRippleRadius>{{preservative.preservativeType}}</button>
+            </div>
         </div>
     </div>
     <div class="col-md-4 text-center searchTop">
