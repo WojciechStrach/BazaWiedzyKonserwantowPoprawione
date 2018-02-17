@@ -1,3 +1,6 @@
+import { forEach } from '../../../AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/async';
+
+const assert = require('assert');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -9,6 +12,11 @@ const diseaseModel = require('./models/disease');
 const token = 'Z69DWMsps0BIPFr8ccAKfsI6vc7SWPMB';
 
 const app = express();
+
+process.on('unhandledRejection', (reason, p) => {
+    console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+    // application specific logging, throwing an error, or other logic here
+  });
 
 //middleware
 app.use(function(req, res, next) {
@@ -648,7 +656,7 @@ app.post('/search/disease/hint', urlencodedParser, function(req,res){
     
 });
 
-app.post('/add/product', urlencodedParser, function(req,res){
+app.post('/add/product', urlencodedParser, async (req, res) => {
 
     var body = req.body;
 
@@ -673,10 +681,111 @@ app.post('/add/product', urlencodedParser, function(req,res){
         res.status(400).send('<h4>' + response + '</h4>');
 
     }else{
-        //TODO
+
+        var ifExistInDatabase = true;
+
+        function checkIfPreservativeExist(preservative) {
+
+            return new Promise(function(resolve,reject){
+
+                db.cypher({
+
+                    query: 'MATCH (x:Oznaczenie)' +
+                           'WHERE x.Oznaczenie = {searchValue}' +
+                           'RETURN x',
+                    params: { 
+                        searchValue: preservative,
+                    },
+                }, function (err, results) {
+        
+                    if (err) {
+                        console.log(err);
+                        res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>');
+                    }
+        
+                    var result = results[0];
+                    if (!result) {
+                        resolve(false);
+                    }else{
+                        reject('Preservative exist');
+                    }
+                });
+            });
+        };
+        
+
+        for(let i=0; i<body.add.productPreservatives.length; i++){
+        
+            await checkIfPreservativeExist(body.add.productPreservatives[i]).then(function(resolve){
+                ifExistInDatabase = resolve;
+            }).catch(function(rej){});
+        
+        }
+
+        if(ifExistInDatabase === false){
+            res.status(400).send('<h4>One or more preservative does not exist in database, please add missing preservative first.</h4>');
+        } else {
+
+            db.cypher({
+
+                query: 'MERGE (typ:Typ {Typ: "Napój"})' +
+                       'MERGE (rodzaj:Rodzaj {Rodzaj: {productType}})' +
+                       'MERGE (typ)-[:Hiperonim]->(rodzaj)' +
+                       'MERGE (rodzaj)-[:Hiponim]->(typ)' +
+                       'MERGE (nazwa_produktu:Nazwa_produktu {Nazwa_produktu: {productFamily}})' +
+                       'MERGE (rodzaj)<-[:Jest_instancją]-(nazwa_produktu)' +
+                       'MERGE (nazwa:Nazwa {Nazwa: {productName}, Url_obrazka: {productImgUrl}})' +
+                       'MERGE (nazwa_produktu)<-[:Jest_instancją]-(nazwa)' +
+                       'MERGE (producent:Producent {Producent: {productOwner}})' +
+                       'MERGE (producent)-[:Jest_właścicielem]->(nazwa_produktu)',
+                params: { 
+                    productType: body.add.productType,
+                    productFamily: body.add.productFamily,
+                    productName: body.add.productName.Name,
+                    productImgUrl: body.add.productName.UrlObrazka,
+                    productOwner: body.add.productOwner, 
+                },
+            }, function (err, results) {
+    
+                if (err) {
+                    console.log(err);
+                    res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>');
+                }
+
+                body.add.productPreservatives.forEach(function(preservative){
+    
+                    db.cypher({
+
+                        query: 'MATCH (nazwa:Nazwa {Nazwa: {productName}})' +
+                               'MATCH (oznaczenie:Oznaczenie {Oznaczenie: {preservative}})' +
+                               'MERGE (nazwa)-[:Zawiera]->(oznaczenie)',
+                        params: { 
+                            productName: body.add.productName.Name,
+                            preservative: preservative, 
+                        },
+                    }, function (err, results) {
+            
+                        if (err) {
+                            console.log(err);
+                            res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>');
+                        }else{
+                            res.status(200).send(true);
+                        }
+        
+                    });
+
+                });    
+
+            });
+
+        }
+    
+                
     }
+            
 
 });
+
 
 app.listen(3000, function(err){
         console.log('Server Started on port 3000');
