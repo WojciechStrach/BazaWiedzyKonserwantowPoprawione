@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { PreservativeSearchComponent } from './preservative-search/preservative-search.component';
 import { DiseaseSearchComponent } from './disease-search/disease-search.component';
+import { ProductAddComponent } from './product-add/product-add.component';
 
 
 
@@ -32,6 +33,7 @@ import { DiseaseSearchComponent } from './disease-search/disease-search.componen
     FooterComponent,
     PreservativeSearchComponent,
     DiseaseSearchComponent,
+    ProductAddComponent,
   ],
   imports: [
     HttpClientModule,

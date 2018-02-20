@@ -1,5 +1,3 @@
-import { forEach } from '../../../AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/async';
-
 const assert = require('assert');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -30,6 +28,22 @@ const urlencodedParser = bodyParser.json({ extended: false });
 //routes
 app.get('/', function(req, res){
     res.status(200).send('<h1>Knowledge database API</h1>');
+});
+
+app.get('/get/all_preservatives', urlencodedParser, function(req,res){
+
+    db.cypher({
+        query: 'MATCH (x:Oznaczenie)' +
+               'RETURN x',
+    }, function (err, results) {
+
+        if (err) {
+            console.log(err);
+            res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>');
+        }
+
+        res.status(200).send(results);
+    })
 });
 
 app.post('/search/product', urlencodedParser, function(req,res){
@@ -769,12 +783,14 @@ app.post('/add/product', urlencodedParser, async (req, res) => {
                             console.log(err);
                             res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>');
                         }else{
-                            res.status(200).send(true);
+                        
                         }
         
                     });
 
-                });    
+                }); 
+                
+                res.status(200).send(true);
 
             });
 
