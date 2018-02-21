@@ -21,6 +21,7 @@ import { FooterComponent } from './footer/footer.component';
 import { PreservativeSearchComponent } from './preservative-search/preservative-search.component';
 import { DiseaseSearchComponent } from './disease-search/disease-search.component';
 import { ProductAddComponent } from './product-add/product-add.component';
+import { PreservativeAddComponent } from './preservative-add/preservative-add.component';
 
 
 
@@ -34,6 +35,7 @@ import { ProductAddComponent } from './product-add/product-add.component';
     PreservativeSearchComponent,
     DiseaseSearchComponent,
     ProductAddComponent,
+    PreservativeAddComponent,
   ],
   imports: [
     HttpClientModule,

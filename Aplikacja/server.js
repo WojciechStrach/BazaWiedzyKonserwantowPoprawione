@@ -802,6 +802,87 @@ app.post('/add/product', urlencodedParser, async (req, res) => {
 
 });
 
+app.post('/add/preservative', urlencodedParser, async (req, res) => {
+
+    var body = req.body;
+
+    if(typeof body.token === "undefined"){
+
+        let jsonString = JSON.stringify({"token":"API_acces_token","add":"Object_of_preservative_that_you_want_to_add"});
+        let response = 'JSON data are not valid, please provide data in ' + jsonString + ' format';
+
+        res.status(400).send('<h4>' + response + '</h4>');
+
+    }else if(typeof body.add === "undefined"){
+
+        let jsonString = JSON.stringify({"token":"API_acces_token","add":"Object_of_preservative_that_you_want_to_add"});
+        let response = 'JSON data are not valid, please provide data in ' + jsonString + ' format';
+
+        res.status(400).send('<h4>' + response + '</h4>');
+
+    }else if(body.token !== token){
+
+        let response = 'Provided token is incorrect, please provide correct token';
+
+        res.status(400).send('<h4>' + response + '</h4>');
+
+    }else{
+
+        db.cypher({
+
+            query: 'MERGE (dodatki_do_żywności:żywność {Dodatki_do_żywności: "Dodatki do żywności"})' +
+                   'MERGE (typ_dodatku_do_żywności:Typ_dodatku_do_żywności {Typ_dodatku_do_żywności: {preservativeType}})' +
+                   'MERGE (dodatki_do_żywności)-[:Hiperonim]->(typ_dodatku_do_żywności)' +
+                   'MERGE (typ_dodatku_do_żywności)-[:Hiponim]->(dodatki_do_żywności)' +
+                   'MERGE (oznaczenie:Oznaczenie {Oznaczenie: {preservativeSign}, Opis: {preservativeDescription}, Nazwa_zwyczajowa: {preservativeCommonName}})' +
+                   'MERGE (typ_dodatku_do_żywności)<-[:Jest_instancją]-(oznaczenie)',
+            params: { 
+                preservativeType: body.add.preservativeType,
+                preservativeSign: body.add.preservativeSign,
+                preservativeDescription: body.add.preservativeDescription, 
+                preservativeCommonName: body.add.preservativeCommonName,
+                 
+            },
+        }, async function (err, results) {
+
+            if (err) {
+                console.log(err);
+                res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>');
+            }else{
+
+                await body.add.preservativeDiseases.forEach((disease) => {
+
+                    db.cypher({
+
+                        query:  'MERGE (choroba:Choroba {Choroba: {preservativeDisease}})' +
+                                'MATCH (oznaczenie:Oznaczenie {Oznaczenie: {preservativeSign})' +
+                                'MERGE (oznaczenie)-[:Może_powodować]->(choroba)',                               
+                        params: { 
+                            preservativeDisease: disease,
+                            preservativeSign: body.add.preservativeSign,
+                             
+                        },
+                    }, function (err, results) {
+            
+                        if (err) {
+                            console.log(err);
+                            res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>')
+                        }
+
+                    }
+                )
+
+                })
+
+                res.status(200).send(true);
+
+            }
+        });
+
+    }
+
+});
+
 
 app.listen(3000, function(err){
         console.log('Server Started on port 3000');

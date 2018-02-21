@@ -1,0 +1,151 @@
+<div class="row">
+  <div class="col-md-12 text-center paddingTop">
+    <h2>Dodawanie dodatku do żywności do bazy danych</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 text-center addPadding">
+    <h4>Api Token</h4>
+  </div>
+  <div class="col-md-6 text-center paddingRight">
+    <div class="md-form">
+      <input [(ngModel)]="preservativeAddModel.token" #ctrl="ngModel" mdbActive type="text" id="apiTokenInput" class="form-control" #searchInput required>
+      <label for="apiTokenInput" class="">Api Token</label>
+    </div>
+  </div>
+</div>
+<div class="paddingTop"></div>
+<div class="row">
+    <div class="col-md-6 text-center addPadding">
+      <h4>Typ Dodatku</h4>
+    </div>
+    <div class="col-md-6 text-center paddingRight">
+      <div class="md-form">
+        <input [(ngModel)]="preservativeAddModel.add.preservativeType" #ctrl="ngModel" mdbActive type="text" id="productTypeInput" class="form-control" #searchInput required>
+        <label for="productTypeInput" class="">Wprowadź typ dodatku do żywności np. Barwnik</label>
+      </div>
+    </div>
+</div>
+<div class="paddingTop"></div>
+<div class="row">
+    <div class="col-md-6 text-center addPadding">
+      <h4>Oznaczenie Dodatku</h4>
+    </div>
+    <div class="col-md-6 text-center paddingRight">
+      <div class="md-form">
+        <input [(ngModel)]="preservativeAddModel.add.preservativeSign" #ctrl="ngModel" mdbActive type="text" id="productFamilyInput" class="form-control" #searchInput required>
+        <label for="productFamilyInput" class="">Wprowadź oznaczenie dodatku do żywności np. E290</label>
+      </div>
+    </div>
+</div>
+<div class="paddingTop"></div>
+<div class="row">
+    <div class="col-md-6 text-center addPadding">
+      <h4>Opis Dodatku</h4>
+    </div>
+    <div class="col-md-6 text-center paddingRight">
+      <div class="md-form">
+        <textarea [(ngModel)]="preservativeAddModel.add.preservativeDescription" #ctrl="ngModel" mdbActive type="text" id="productNameInput" class="md-textarea" #searchInput required></textarea>
+        <label for="productNameInput" class="">Wprowadź krótki opis dodatku do żywności</label>
+      </div>
+    </div>
+</div>
+<div class="paddingTop"></div>
+<div class="row">
+    <div class="col-md-6 text-center addPadding">
+      <h4>Nazwa Zwyczajowa Dodatku</h4>
+    </div>
+    <div class="col-md-6 text-center paddingRight">
+      <div class="md-form">
+        <input [(ngModel)]="preservativeAddModel.add.preservativeCommonName" #ctrl="ngModel" mdbActive type="text" id="productImgUrlInput" class="form-control" #searchInput required>
+        <label for="productImgUrlInput" class="">Wprowadź nazwę zwyczajową dodatku do żywności np. Aspartam</label>
+      </div>
+    </div>
+</div>
+<div class="paddingTop"></div>
+<div class="paddingTop"></div>
+<div class="row">
+    <div class="col-md-12 text-center addPadding">
+      <h4>Choroby lub dolegliwości jakie może wywoływać dodatek (wprowadź a następnie wciśnij dodaj)</h4>
+    </div>
+</div>
+<div class="paddingTop"></div>
+<div class="row">
+  <div class="col-md-6 text-center addPadding">
+    <h5>Wprowadź chorobę lub dolegliwość</h5>
+    <br>
+    <div class="paddingTop"></div>
+    <div class="md-form paddingLeft">
+      <input [(ngModel)]="diseaseInputValue" #ctrl="ngModel" mdbActive type="text" id="diseasesInput" class="form-control" #searchInput required>
+      <label for="diseasesInput" class="paddingLeft">Wprowadź chorobę lub dolegliwość np. Bóle brzucha</label>
+    </div>
+    <div class="paddigTop"></div>
+    <div class="paddigTop"></div>
+    <br>
+    <br>
+    <button (click)="addDisease()" type="button" class="btn btn-amber waves-light" mdbRippleRadius>Dodaj</button>
+  </div>
+  <div class="col-md-6 text-center addPadding">
+    <h5>Lista przypisanych chorób i dolegliwości</h5>
+    <div class="paddingTop"></div>
+    <button *ngFor="let disease of preservativeAddModel.add.preservativeDiseases " (click)="removeAssignedDisease(disease)" type="button" class="btn btn-amber waves-light " mdbRippleRadius>{{disease}}</button>
+  </div>
+</div>
+<div class="paddingTop"></div>
+<div class="paddingTop"></div>
+<div class="paddingTop"></div>
+<div class="row">
+  <div class="col-md-12 text-center addPadding">
+    <h4>Zatwierdź</h4>
+  </div>
+</div>
+<div class="paddingTop"></div>
+<div class="row">
+  <div class="col-md-12 text-center addPadding">
+    <button (click)="addPreservative()" type="button" class="btn btn-amber waves-light " mdbRippleRadius>Zatwierdź i dodaj produkt do bazy danych</button>
+  </div>
+</div>
+
+
+
+<button id="openSuccessModal" [hidden]="true" type="button" class="btn btn-primary waves-light" data-target="#centralModalSucces" (click)="style.show()" mdbRippleRadius></button>
+
+<div mdbModal #style="mdb-modal" class="modal oflow fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title w-100" id="myModalLabel">Sukces</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="style.hide()">
+                    <span aria-hidden="true" class="white-text">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                    Udało się dodać nowy dodatek do żywności do bazy danych, możesz teraz dodać następny lub przejść do sekcji wyszukiwania.                    
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-amber waves-light" data-dismiss="modal" (click)="style.hide()" mdbRippleRadius>Zamknij</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button id="openExceptionModal" type="button" [hidden]="true" class="btn btn-primary waves-light" data-toggle="modal" data-target="#detailsModal" (click)="detailsModal.show()" mdbRippleRadius></button>
+
+<div mdbModal #detailsModal="mdb-modal" class="modal oflow fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100" id="myModalLabel">Wystąpił nieoczekiwany błąd</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="detailsModal.hide()">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Operacja dodawania nie powiodła się, sprawdź czy podany token jest prawidłowy oraz czy masz połączenie z internetem a następnie spróbuj ponownie.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-amber waves-light" data-dismiss="modal" (click)="detailsModal.hide()" mdbRippleRadius>Zamknij</button>
+            </div>
+        </div>
+    </div>
+</div>

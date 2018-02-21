@@ -1,0 +1,67 @@
+.card{
+    height: 20rem;
+    width: 20rem;
+    
+}
+
+h2 {
+    padding-top: 2%;
+    padding-bottom: 5%;
+    font-weight: bold;
+}
+
+.padding{
+    padding-bottom: 3%;
+}
+
+.imgSize{
+    max-width: 100%; 
+    height: auto;
+}
+
+.paddingTop{
+    padding-top: 3%;
+}
+
+.paddingLeft{
+    padding-left: 5%;
+}
+
+.addPadding{
+    padding-top: 1%; 
+}
+
+.paddingRight{
+    padding-right: 10%;
+    padding-left: 5%; 
+}
+
+input[type=text]:focus:not([readonly]) + label {
+    color: #ffc107; 
+}
+
+input[type=text]:focus:not([readonly]) {
+    border-bottom: 1px solid #ffc107;
+    box-shadow: 0 1px 0 0 #ffc107; 
+}
+
+textarea[type=text]:focus:not([readonly]) + label {
+    color: #ffc107; 
+}
+
+textarea[type=text]:focus:not([readonly]) {
+    border-bottom: 1px solid #ffc107;
+    box-shadow: 0 1px 0 0 #ffc107; 
+}
+
+.searchPadding{
+    padding-top: 7%;
+}
+
+h4{
+    font-weight: bold;
+}
+
+h5{
+    font-weight: bold;
+}

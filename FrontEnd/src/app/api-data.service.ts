@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { ProductAddModel } from './product-add/product-add.model';
+import { PreservativeAddModel } from './preservative-add/preservative-add.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -49,5 +50,9 @@ export class ApiDataService {
 
   addProduct(addObject: ProductAddModel) {
     return this.http.post('http://localhost:3000/add/product', addObject, httpOptions);
+  }
+
+  addPreservative(addObject: PreservativeAddModel) {
+    return this.http.post('http://localhost:3000/add/preservative', addObject, httpOptions);
   }
 }
