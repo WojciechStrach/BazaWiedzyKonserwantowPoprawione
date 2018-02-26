@@ -118,6 +118,7 @@ app.post('/search/product', urlencodedParser, function(req,res){
 
                         let diseasesTempObject = [];
                         
+                        
 
                         function diseasesCallback(_callback, tabLength){
 
@@ -140,7 +141,7 @@ app.post('/search/product', urlencodedParser, function(req,res){
                                         }
                             
                                         var diseaseResult = diseasesResults[0];
-                                        if (!diseaseResult) {
+                                        if (true===false) {
                                             
                                         } else {
 
@@ -212,7 +213,7 @@ app.post('/search/product', urlencodedParser, function(req,res){
                                     }
                         
                                     var ownerResult = ownerResults[0];
-                                    if (!ownerResult) {
+                                    if (true===false) {
                                         
                                     } else {
                                         
@@ -234,7 +235,7 @@ app.post('/search/product', urlencodedParser, function(req,res){
                                             }
                                 
                                             var typeResult = typeResults[0];
-                                            if (!typeResult) {
+                                            if (true===false) {
                                                 
                                             } else {
 
@@ -830,7 +831,7 @@ app.post('/add/preservative', urlencodedParser, async (req, res) => {
 
         db.cypher({
 
-            query: 'MERGE (dodatki_do_żywności:żywność {Dodatki_do_żywności: "Dodatki do żywności"})' +
+            query: 'MERGE (dodatki_do_żywności:Żywność {Dodatki_do_żywności: "Dodatki do żywności"})' +
                    'MERGE (typ_dodatku_do_żywności:Typ_dodatku_do_żywności {Typ_dodatku_do_żywności: {preservativeType}})' +
                    'MERGE (dodatki_do_żywności)-[:Hiperonim]->(typ_dodatku_do_żywności)' +
                    'MERGE (typ_dodatku_do_żywności)-[:Hiponim]->(dodatki_do_żywności)' +
@@ -877,6 +878,255 @@ app.post('/add/preservative', urlencodedParser, async (req, res) => {
                 res.status(200).send(true);
 
             }
+        });
+
+    }
+
+});
+
+app.post('/delete/product', urlencodedParser, async (req, res) => {
+
+    var body = req.body;
+    var deleteValue;
+
+    if (typeof body.delete === "undefined"){
+
+        let jsonString = JSON.stringify({"delete":"product_that_you_want_to_delete"});
+        let response = 'JSON data are not valid, please provide data in ' + jsonString + ' format';
+
+        res.status(400).send('<h4>' + response + '</h4>');
+
+    }else{
+
+        deleteValue = body.delete;
+
+        db.cypher({
+
+            query: 'MATCH (n:Nazwa {Nazwa:{deleteProduct}})' +
+                   'DETACH DELETE n',
+            params: { 
+                deleteProduct: deleteValue
+                 
+            },
+        }, async function (err, results) {
+
+            if (err) {
+                console.log(err);
+                res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>');
+            }else{
+
+                res.status(400).send(true);
+
+            }
+        
+        });
+
+    }
+
+});
+
+app.post('/edit/product', urlencodedParser, async (req, res) => {
+
+    var body = req.body;
+    
+
+    if (typeof body.edit === "undefined"){
+
+        let jsonString = JSON.stringify({"edit":"product_that_you_want_to_edit"});
+        let response = 'JSON data are not valid, please provide data in ' + jsonString + ' format';
+
+        res.status(400).send('<h4>' + response + '</h4>');
+
+    }else{
+
+        db.cypher({
+
+            query: 'MATCH (n:Nazwa {Nazwa:{oldName}})' +
+                   'SET n.Nazwa = {newName}' +
+                   'SET n.Url_obrazka = {pictureUrl}',
+            params: { 
+                oldName: body.edit.oldName,
+                newName: body.edit.newName,
+                pictureUrl: body.edit.pictureUrl
+                 
+            },
+        }, async function (err, results) {
+
+            if (err) {
+                console.log(err);
+                res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>');
+            }else{
+
+                res.status(400).send(true);
+
+            }
+        
+        });
+
+    }
+
+});
+
+app.post('/delete/preservative', urlencodedParser, async (req, res) => {
+
+    var body = req.body;
+    var deleteValue;
+
+    if (typeof body.delete === "undefined"){
+
+        let jsonString = JSON.stringify({"delete":"preservative_that_you_want_to_delete"});
+        let response = 'JSON data are not valid, please provide data in ' + jsonString + ' format';
+
+        res.status(400).send('<h4>' + response + '</h4>');
+
+    }else{
+
+        deleteValue = body.delete;
+
+        db.cypher({
+
+            query: 'MATCH (n:Oznaczenie {Oznaczenie:{deletePreservative}})' +
+                   'DETACH DELETE n',
+            params: { 
+                deletePreservative: deleteValue
+                 
+            },
+        }, async function (err, results) {
+
+            if (err) {
+                console.log(err);
+                res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>');
+            }else{
+
+                res.status(400).send(true);
+
+            }
+        
+        });
+
+    }
+
+});
+
+app.post('/edit/preservative', urlencodedParser, async (req, res) => {
+
+    var body = req.body;
+    
+
+    if (typeof body.edit === "undefined"){
+
+        let jsonString = JSON.stringify({"edit":"preservative_that_you_want_to_edit"});
+        let response = 'JSON data are not valid, please provide data in ' + jsonString + ' format';
+
+        res.status(400).send('<h4>' + response + '</h4>');
+
+    }else{
+
+        db.cypher({
+
+            query: 'MATCH (n:Oznaczenie {Oznaczenie:{oldPreservativeSign}})' +
+                   'SET n.Oznaczenie = {newPreservativeSign}' +
+                   'SET n.Nazwa_zwyczajowa = {preservativeCommonName}' +
+                   'SET n.Opis = {preservativeDescription}',
+            params: { 
+                oldPreservativeSign: body.edit.oldPreservativeSign,
+                newPreservativeSign: body.edit.newPreservativeSign,
+                preservativeCommonName: body.edit.preservativeCommonName,
+                preservativeDescription: body.edit.preservativeDescription
+                 
+            },
+        }, async function (err, results) {
+
+            if (err) {
+                console.log(err);
+                res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>');
+            }else{
+
+                res.status(400).send(true);
+
+            }
+        
+        });
+
+    }
+
+});
+
+app.post('/delete/disease', urlencodedParser, async (req, res) => {
+
+    var body = req.body;
+    var deleteValue;
+
+    if (typeof body.delete === "undefined"){
+
+        let jsonString = JSON.stringify({"delete":"disease_that_you_want_to_delete"});
+        let response = 'JSON data are not valid, please provide data in ' + jsonString + ' format';
+
+        res.status(400).send('<h4>' + response + '</h4>');
+
+    }else{
+
+        deleteValue = body.delete;
+
+        db.cypher({
+
+            query: 'MATCH (n:Choroba {Choroba:{deleteDisease}})' +
+                   'DETACH DELETE n',
+            params: { 
+                deleteDisease: deleteValue
+                 
+            },
+        }, async function (err, results) {
+
+            if (err) {
+                console.log(err);
+                res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>');
+            }else{
+
+                res.status(400).send(true);
+
+            }
+        
+        });
+
+    }
+
+});
+
+app.post('/edit/disease', urlencodedParser, async (req, res) => {
+
+    var body = req.body;
+    
+
+    if (typeof body.edit === "undefined"){
+
+        let jsonString = JSON.stringify({"edit":"disease_that_you_want_to_edit"});
+        let response = 'JSON data are not valid, please provide data in ' + jsonString + ' format';
+
+        res.status(400).send('<h4>' + response + '</h4>');
+
+    }else{
+
+        db.cypher({
+
+            query: 'MATCH (n:Choroba {Choroba:{oldName}})' +
+                   'SET n.Choroba = {newName}',
+            params: { 
+                oldName: body.edit.oldName,
+                newName: body.edit.newName
+                 
+            },
+        }, async function (err, results) {
+
+            if (err) {
+                console.log(err);
+                res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>');
+            }else{
+
+                res.status(400).send(true);
+
+            }
+        
         });
 
     }
