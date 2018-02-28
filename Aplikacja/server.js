@@ -46,6 +46,38 @@ app.get('/get/all_preservatives', urlencodedParser, function(req,res){
     })
 });
 
+app.get('/get/all_product', urlencodedParser, function(req,res){
+
+    db.cypher({
+        query: 'MATCH (x:Nazwa)' +
+               'RETURN x',
+    }, function (err, results) {
+
+        if (err) {
+            console.log(err);
+            res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>');
+        }
+
+        res.status(200).send(results);
+    })
+});
+
+app.get('/get/all_diseases', urlencodedParser, function(req,res){
+
+    db.cypher({
+        query: 'MATCH (x:Choroba)' +
+               'RETURN x',
+    }, function (err, results) {
+
+        if (err) {
+            console.log(err);
+            res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>');
+        }
+
+        res.status(200).send(results);
+    })
+});
+
 app.post('/search/product', urlencodedParser, function(req,res){
 
     var body = req.body;
@@ -675,23 +707,10 @@ app.post('/add/product', urlencodedParser, async (req, res) => {
 
     var body = req.body;
 
-    if(typeof body.token === "undefined"){
+    if(typeof body.add === "undefined"){
 
         let jsonString = JSON.stringify({"token":"API_acces_token","add":"Object_of_product_that_you_want_to_add"});
         let response = 'JSON data are not valid, please provide data in ' + jsonString + ' format';
-
-        res.status(400).send('<h4>' + response + '</h4>');
-
-    }else if(typeof body.add === "undefined"){
-
-        let jsonString = JSON.stringify({"token":"API_acces_token","add":"Object_of_product_that_you_want_to_add"});
-        let response = 'JSON data are not valid, please provide data in ' + jsonString + ' format';
-
-        res.status(400).send('<h4>' + response + '</h4>');
-
-    }else if(body.token !== token){
-
-        let response = 'Provided token is incorrect, please provide correct token';
 
         res.status(400).send('<h4>' + response + '</h4>');
 
@@ -807,23 +826,10 @@ app.post('/add/preservative', urlencodedParser, async (req, res) => {
 
     var body = req.body;
 
-    if(typeof body.token === "undefined"){
+    if(typeof body.add === "undefined"){
 
         let jsonString = JSON.stringify({"token":"API_acces_token","add":"Object_of_preservative_that_you_want_to_add"});
         let response = 'JSON data are not valid, please provide data in ' + jsonString + ' format';
-
-        res.status(400).send('<h4>' + response + '</h4>');
-
-    }else if(typeof body.add === "undefined"){
-
-        let jsonString = JSON.stringify({"token":"API_acces_token","add":"Object_of_preservative_that_you_want_to_add"});
-        let response = 'JSON data are not valid, please provide data in ' + jsonString + ' format';
-
-        res.status(400).send('<h4>' + response + '</h4>');
-
-    }else if(body.token !== token){
-
-        let response = 'Provided token is incorrect, please provide correct token';
 
         res.status(400).send('<h4>' + response + '</h4>');
 

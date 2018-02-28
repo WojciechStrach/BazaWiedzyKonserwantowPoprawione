@@ -25,58 +25,59 @@
         <button *ngFor="let hint of hintsTab" type="button" class="btn btn-deep-orange waves-light btn-sm" mdbRippleRadius (click)="hintCompleter(hint)" >{{hint}}</button>  
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12 text-center paddingTop" >
-        <h2>Wynik wyszukiwania</h2>
+<div *ngIf="product.productName != ''">
+    <div class="row">
+        <div class="col-md-12 text-center paddingTop" >
+            <h2>Wynik wyszukiwania</h2>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-md-4 text-center searchTop">
+            <img [src]="product.productPictureUrl" class="imgSize img-fluid" alt="">
+        </div>
+        <div class="col-md-4 text-center searchTop">
+            <div class="col-md-12 paddingTop">
+                <h4>Nazwa produktu</h4>
+            </div>
+            <div class="col-md-12 paddingTop">
+                <div *ngIf="product.productName != ''">
+                    <button type="button" class="btn btn-deep-orange waves-light" mdbRippleRadius>{{product.productName}}</button>
+                </div>
+            </div>
+            <div class="col-md-12 paddingTop">
+                <h4>Typ produktu</h4>
+            </div>
+            <div class="col-md-12 paddingTop">
+                <div *ngIf="product.productType != ''">
+                    <button type="button" class="btn btn-deep-orange waves-light" mdbRippleRadius>{{product.productType}}</button>
+                </div>
+            </div>
+            <div class="col-md-12 paddingTop">
+                <h4>Producent</h4>
+            </div>
+            <div class="col-md-12 paddingTop">
+                <div *ngIf="product.productOwner != ''">
+                    <button type="button" class="btn btn-deep-orange waves-light" mdbRippleRadius>{{product.productOwner}}</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-center searchTop">
+            <div class="col-md-12 paddingTop">
+                <h4>Chemiczne dodatki i konserwanty zawarte w produkcie</h4>
+            </div>
+            <div class="col-md-12 paddingTop">
+                <button *ngFor="let preservative of product.preservatives" type="button" (click)="preservativesDetails(preservative.Nazwa_zwyczajowa, preservative.Opis)" class="btn btn-deep-orange waves-light btn-sm" mdbRippleRadius>{{preservative.Oznaczenie}}</button>
+            </div>
+            <div class="col-md-12 paddingTop">
+                <h4>Choroby i dolegliwości jakie mogą powodować konserwanty i dodatki chemiczne zawarte w produkcie</h4>
+            </div>
+            <div class="col-md-12 paddingTop">
+                <button *ngFor="let disease of product.diseases" type="button" class="btn btn-deep-orange waves-light btn-sm" mdbRippleRadius>{{disease}}</button>
+            </div>
+        </div>
     </div>
 </div>
-
-<div class="row text-center">
-    <div class="col-md-4 text-center searchTop">
-        <img [src]="product.productPictureUrl" class="imgSize img-fluid" alt="">
-    </div>
-    <div class="col-md-4 text-center searchTop">
-        <div class="col-md-12 paddingTop">
-            <h4>Nazwa produktu</h4>
-        </div>
-        <div class="col-md-12 paddingTop">
-            <div *ngIf="product.productName != ''">
-                <button type="button" class="btn btn-deep-orange waves-light" mdbRippleRadius>{{product.productName}}</button>
-            </div>
-        </div>
-        <div class="col-md-12 paddingTop">
-            <h4>Typ produktu</h4>
-        </div>
-        <div class="col-md-12 paddingTop">
-            <div *ngIf="product.productType != ''">
-                <button type="button" class="btn btn-deep-orange waves-light" mdbRippleRadius>{{product.productType}}</button>
-            </div>
-        </div>
-        <div class="col-md-12 paddingTop">
-            <h4>Producent</h4>
-        </div>
-        <div class="col-md-12 paddingTop">
-            <div *ngIf="product.productOwner != ''">
-                <button type="button" class="btn btn-deep-orange waves-light" mdbRippleRadius>{{product.productOwner}}</button>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 text-center searchTop">
-        <div class="col-md-12 paddingTop">
-            <h4>Chemiczne dodatki i konserwanty zawarte w produkcie</h4>
-        </div>
-        <div class="col-md-12 paddingTop">
-            <button *ngFor="let preservative of product.preservatives" type="button" (click)="preservativesDetails(preservative.Nazwa_zwyczajowa, preservative.Opis)" class="btn btn-deep-orange waves-light btn-sm" mdbRippleRadius>{{preservative.Oznaczenie}}</button>
-        </div>
-        <div class="col-md-12 paddingTop">
-            <h4>Choroby i dolegliwości jakie mogą powodować konserwanty i dodatki chemiczne zawarte w produkcie</h4>
-        </div>
-        <div class="col-md-12 paddingTop">
-            <button *ngFor="let disease of product.diseases" type="button" class="btn btn-deep-orange waves-light btn-sm" mdbRippleRadius>{{disease}}</button>
-        </div>
-    </div>
-</div>
-
 
 <button id="openModalButton" [hidden]="true" type="button" class="btn btn-primary waves-light" data-target="#centralModalSucces" (click)="style.show()" mdbRippleRadius></button>
 

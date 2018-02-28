@@ -1,0 +1,163 @@
+<div class="row">
+  <div class="col-md-12 text-center">
+      <h2>Panel administracyjny</h2>
+  </div>
+</div>
+<br>
+<br>
+<div class="row">
+  <div class="col-md-12 text-center">
+      <h2>Dodawanie nowych produktów i konserwantów do bazy danych</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 text-center">
+    <button type="button" class="btn btn-secondary waves-light btn-lg" routerLink="/add/product"  mdbRippleRadius>Dodaj produkt</button>
+  </div>
+  <div class="col-md-6 text-center">
+    <button type="button" class="btn btn-amber waves-light btn-lg" routerLink="/add/preservative"  mdbRippleRadius>Dodaj konserwant</button>
+  </div>
+</div>
+<br>
+<br>
+<div class="row">
+  <div class="col-md-12 text-center">
+      <h2>Edytuj lub usuń produkt</h2>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-12 text-center">
+    <button *ngFor="let product of allProductsArray" type="button" class="btn btn-deep-orange waves-light btn-sm" mdbRippleRadius (click)="editOrRemoveProduct(product)" >{{product.productName}}</button>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<div class="row">
+  <div class="col-md-12 text-center">
+      <h2>Edytuj lub usuń dodatek do żywności</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 text-center">
+    <button *ngFor="let preservative of allPreservativesArray" type="button" class="btn btn-primary waves-light btn-sm" mdbRippleRadius (click)="editOrRemovePreservative(preservative)" >{{preservative.preservativeSign}}</button>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<button type="button" data-toggle="modal" class="btn btn-primary waves-light" id="productModalStarter" [hidden]="true" data-target="#productModal" (click)="productModal.show()" mdbRippleRadius></button>
+<!--Modal: Subscription From-->
+<div mdbModal #productModal="mdb-modal" class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal" role="document">
+        <!--Content-->
+        <div class="modal-content">
+
+            <!--Header-->
+            <div class="modal-header light-blue darken-3 white-text">
+                <h4 class="title"><i class="fa fa-newspaper-o"></i> Edytuj lub usuń produkt</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="productModal.hide()">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body mb-0">
+
+                <h4 class="text-center">Nazwa produktu</h4>
+                <div class="md-form form-sm">
+                    
+                    <input [(ngModel)]="product.edit.newName" #ctrl="ngModel" mdbActive type="text" id="form27" class="form-control">
+                    
+                </div>
+
+                <h4 class="text-center">Url obrazka</h4>
+                <div class="md-form form-sm">
+                    
+                    <input [(ngModel)]="product.edit.pictureUrl" #ctrl="ngModel" mdbActive type="text" id="form28" class="form-control">
+                    
+                </div>
+
+                
+                    <button class="btn btn-primary mb-1 waves-light" (click)="editProduct()"  mdbRippleRadius>Zapisz zmiany</button>
+                
+                
+                  <button class="btn btn-primary mb-1 waves-light" (click)="deleteProduct()"  mdbRippleRadius>Usuń</button>
+                
+                
+                  <button class="btn btn-primary mb-1 waves-light" (click)="productModal.hide()" id="modalCloser" mdbRippleRadius>Zamknij</button>
+                
+
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!--Modal: Subscription From-->
+
+<button type="button" data-toggle="modal" class="btn btn-primary waves-light" id="preservativeModalStarter" [hidden]="true" data-target="#preservativeModal" (click)="preservativeModal.show()" mdbRippleRadius></button>
+<!--Modal: Subscription From-->
+<div mdbModal #preservativeModal="mdb-modal" class="modal fade" id="preservativeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal" role="document">
+        <!--Content-->
+        <div class="modal-content">
+
+            <!--Header-->
+            <div class="modal-header light-blue darken-3 white-text">
+                <h4 class="title"><i class="fa fa-newspaper-o"></i> Edytuj lub usuń dodatek</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="preservativeModal.hide()">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body mb-0">
+
+                <h4 class="text-center">Oznaczenie</h4>
+                <div class="md-form form-sm">
+                    
+                    <input [(ngModel)]="preservative.edit.newPreservativeSign" #ctrl="ngModel" mdbActive type="text" id="form27" class="form-control">
+                    
+                </div>
+
+                <h4 class="text-center">Nazwa zwyczajowa</h4>
+                <div class="md-form form-sm">
+                    
+                    <input [(ngModel)]="preservative.edit.preservativeCommonName" #ctrl="ngModel" mdbActive type="text" id="form28" class="form-control">
+                    
+                </div>
+
+                <h4 class="text-center">Opis</h4>
+                <div class="md-form form-sm">
+                    
+                    <textarea [(ngModel)]="preservative.edit.preservativeDescription" #ctrl="ngModel" mdbActive type="text" id="form28" class="form-control"></textarea>
+                    
+                </div>
+
+                
+                    <button class="btn btn-primary mb-1 waves-light" (click)="editPreservative()"  mdbRippleRadius>Zapisz zmiany</button>
+                
+                
+                  <button class="btn btn-primary mb-1 waves-light" (click)="deletePreservative()"  mdbRippleRadius>Usuń</button>
+                
+                
+                  <button class="btn btn-primary mb-1 waves-light" (click)="preservativeModal.hide()" id="preservativeModalCloser" mdbRippleRadius>Zamknij</button>
+                
+
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!--Modal: Subscription From-->

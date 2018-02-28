@@ -7,6 +7,7 @@ import { PreservativeSearchComponent } from './preservative-search/preservative-
 import { DiseaseSearchComponent } from './disease-search/disease-search.component';
 import { ProductAddComponent } from './product-add/product-add.component';
 import { PreservativeAddComponent } from './preservative-add/preservative-add.component';
+import { AdministrationPanelComponent } from './administration-panel/administration-panel.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'add/preservative',
     component: PreservativeAddComponent
+  },
+  {
+    path: 'panel/administrator',
+    component: AdministrationPanelComponent
   }
 ];
 
