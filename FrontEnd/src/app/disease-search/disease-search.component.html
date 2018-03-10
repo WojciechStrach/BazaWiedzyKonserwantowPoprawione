@@ -25,6 +25,8 @@
           <button *ngFor="let preservativesHint of hintsPreservativesTab" type="button" class="btn btn-success waves-light btn-sm" mdbRippleRadius (click)="hintCompleter(preservativesHint)" >{{preservativesHint}}</button>  
       </div>
   </div>
+
+<div *ngIf="disease.diseaseName != checker">  
   <div class="row">
       <div class="col-md-12 text-center paddingTop" >
           <h2>Wynik wyszukiwania</h2>
@@ -51,7 +53,7 @@
         </div>
       </div>   
   </div>
-  
+</div>  
   
   <button id="openModalButton" [hidden]="true" type="button" class="btn btn-primary waves-light" data-target="#centralModalSucces" (click)="style.show()" mdbRippleRadius></button>
   

@@ -75,12 +75,12 @@
   <div class="col-md-6 text-center addPadding">
     <h5>Lista wszystkich konserwantów</h5>
     <div class="paddingTop"></div>
-    <button *ngFor="let preservative of allPreservativesArray" (click)="assignPreservative(preservative)" type="button" class="btn btn-secondary waves-light btn-sm" mdbRippleRadius>{{preservative}}</button>
+    <button *ngFor="let preservative of allPreservativesHintsArray" (click)="assignPreservative(preservative.preservativeSign)" type="button" title="{{preservative.preservativeCommonName}}" class="btn btn-secondary waves-light btn-sm" mdbRippleRadius>{{preservative.preservativeSign}}</button>
   </div>
   <div class="col-md-6 text-center addPadding">
     <h5>Lista przypisanych konserwantów</h5>
     <div class="paddingTop"></div>
-    <button *ngFor="let preservative of addModel.add.productPreservatives" (click)="removeAssignedPreservative(preservative)" type="button" class="btn btn-secondary waves-light " mdbRippleRadius>{{preservative}}</button>
+    <button *ngFor="let preservative of addModel.add.productPreservatives" (click)="removeAssignedPreservative(preservative)" type="button"  class="btn btn-secondary waves-light " mdbRippleRadius>{{preservative}}</button>
   </div>
 </div>
 <div class="paddingTop"></div>

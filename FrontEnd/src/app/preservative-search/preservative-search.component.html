@@ -25,56 +25,60 @@
         <button *ngFor="let preservativesHint of hintsPreservativesTab" type="button" class="btn btn-primary waves-light btn-sm" mdbRippleRadius (click)="hintCompleter(preservativesHint)" >{{preservativesHint}}</button>  
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12 text-center paddingTop" >
-        <h2>Wynik wyszukiwania</h2>
-    </div>
-</div>
 
-<div class="row text-center">
-    <div class="col-md-4 text-center searchTop">
-        <div class="col-md-12 paddingTop">
-            <h4>Oznaczenie dodatku do żywności</h4>
-        </div>
-        <div class="col-md-12 paddingTop">
-            <div *ngIf="preservative.preservativeSign != checker">
-                <button type="button" class="btn btn-primary waves-light" mdbRippleRadius>{{preservative.preservativeSign}}</button>
-            </div>
-        </div>
-        <div class="col-md-12 paddingTop">
-            <h4>Nazwa zwyczajowa dodatku do żywności</h4>
-        </div>
-        <div class="col-md-12 paddingTop">
-            <div *ngIf="preservative.preservativeCommonName != checker">
-                <button type="button" class="btn btn-primary waves-light" mdbRippleRadius>{{preservative.preservativeCommonName}}</button>
-            </div>
-        </div>
-        <div class="col-md-12 paddingTop">
-            <h4>Typ dodatku do żywności</h4>
-        </div>
-        <div class="col-md-12 paddingTop">
-            <div *ngIf="preservative.preservativeType != checker">
-                <button type="button" class="btn btn-primary waves-light" mdbRippleRadius>{{preservative.preservativeType}}</button>
-            </div>
+<div *ngIf="preservative.preservativeSign != checker">
+
+    <div class="row">
+        <div class="col-md-12 text-center paddingTop" >
+            <h2>Wynik wyszukiwania</h2>
         </div>
     </div>
-    <div class="col-md-4 text-center searchTop">
-        <div class="col-md-12 paddingTop">
-            <h4>Choroby i dolegliwości jakie może wywoływać dodatek</h4>
+
+    <div class="row text-center">
+        <div class="col-md-4 text-center searchTop">
+            <div class="col-md-12 paddingTop">
+                <h4>Oznaczenie dodatku do żywności</h4>
+            </div>
+            <div class="col-md-12 paddingTop">
+                <div *ngIf="preservative.preservativeSign != checker">
+                    <button type="button" class="btn btn-primary waves-light" mdbRippleRadius>{{preservative.preservativeSign}}</button>
+                </div>
+            </div>
+            <div class="col-md-12 paddingTop">
+                <h4>Nazwa zwyczajowa dodatku do żywności</h4>
+            </div>
+            <div class="col-md-12 paddingTop">
+                <div *ngIf="preservative.preservativeCommonName != checker">
+                    <button type="button" class="btn btn-primary waves-light" mdbRippleRadius>{{preservative.preservativeCommonName}}</button>
+                </div>
+            </div>
+            <div class="col-md-12 paddingTop">
+                <h4>Typ dodatku do żywności</h4>
+            </div>
+            <div class="col-md-12 paddingTop">
+                <div *ngIf="preservative.preservativeType != checker">
+                    <button type="button" class="btn btn-primary waves-light" mdbRippleRadius>{{preservative.preservativeType}}</button>
+                </div>
+            </div>
         </div>
-        <div class="col-md-12 paddingTop">
-            <button *ngFor="let disease of preservative.preservativeDiseases" type="button" class="btn btn-primary waves-light btn-sm" mdbRippleRadius>{{disease}}</button>
+        <div class="col-md-4 text-center searchTop">
+            <div class="col-md-12 paddingTop">
+                <h4>Choroby i dolegliwości jakie może wywoływać dodatek</h4>
+            </div>
+            <div class="col-md-12 paddingTop">
+                <button *ngFor="let disease of preservative.preservativeDiseases" type="button" class="btn btn-primary waves-light btn-sm" mdbRippleRadius>{{disease}}</button>
+            </div>
         </div>
+        <div class="col-md-4 text-center searchTop">
+            <div class="col-md-12 paddingTop">
+                <h4>Produkty zawierające dodatek</h4>
+            </div>
+            <div class="col-md-12 paddingTop">
+                <button *ngFor="let product of preservative.preservativeProducts" type="button" class="btn btn-primary waves-light btn-sm" mdbRippleRadius>{{product}}</button>
+            </div>
+        </div>    
     </div>
-    <div class="col-md-4 text-center searchTop">
-        <div class="col-md-12 paddingTop">
-            <h4>Produkty zawierające dodatek</h4>
-        </div>
-        <div class="col-md-12 paddingTop">
-            <button *ngFor="let product of preservative.preservativeProducts" type="button" class="btn btn-primary waves-light btn-sm" mdbRippleRadius>{{product}}</button>
-        </div>
-    </div>    
-</div>
+</div>   
 
 
 <button id="openModalButton" [hidden]="true" type="button" class="btn btn-primary waves-light" data-target="#centralModalSucces" (click)="style.show()" mdbRippleRadius></button>

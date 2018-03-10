@@ -14,6 +14,7 @@ export class ProductAddComponent implements OnInit {
 
   protected addModel: ProductAddModel;
   protected allPreservativesArray: String[];
+  protected allPreservativesHintsArray;
 
   constructor(private apiDataService: ApiDataService) { }
 
@@ -33,10 +34,16 @@ export class ProductAddComponent implements OnInit {
     };
 
     this.allPreservativesArray = [];
+    this.allPreservativesHintsArray = [];
 
     this.apiDataService.getAllPreservatives().subscribe(data => {
       for (let i = 0; i < Object(data).length; i++) {
         this.allPreservativesArray.push(data[i].x.properties.Oznaczenie);
+        const tempObj = {
+          preservativeSign: data[i].x.properties.Oznaczenie,
+          preservativeCommonName: data[i].x.properties.Nazwa_zwyczajowa
+        };
+        this.allPreservativesHintsArray.push(tempObj);
       }
     });
 

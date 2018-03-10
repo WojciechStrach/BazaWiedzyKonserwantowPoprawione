@@ -822,7 +822,7 @@ app.post('/add/product', urlencodedParser, async (req, res) => {
 
 });
 
-app.post('/add/preservative', urlencodedParser, async (req, res) => {
+app.post('/add/preservative', urlencodedParser, (req, res) => {
 
     var body = req.body;
 
@@ -850,45 +850,44 @@ app.post('/add/preservative', urlencodedParser, async (req, res) => {
                 preservativeCommonName: body.add.preservativeCommonName,
                  
             },
-        }, async function (err, results) {
+        }, function (err, results) {
 
             if (err) {
                 console.log(err);
-                res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>');
-            }else{
+                res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>')
+            }
+            
 
-                await body.add.preservativeDiseases.forEach((disease) => {
+                for(var i=0; i<body.add.preservativeDiseases.length; i++){
 
                     db.cypher({
 
                         query:  'MERGE (choroba:Choroba {Choroba: {preservativeDisease}})' +
-                                'MATCH (oznaczenie:Oznaczenie {Oznaczenie: {preservativeSign})' +
+                                'MERGE (oznaczenie:Oznaczenie {Oznaczenie: {preservativeSign}})' +
                                 'MERGE (oznaczenie)-[:Może_powodować]->(choroba)',                               
                         params: { 
-                            preservativeDisease: disease,
+                            preservativeDisease: body.add.preservativeDiseases[i],
                             preservativeSign: body.add.preservativeSign,
                              
                         },
                     }, function (err, results) {
-            
+                        
                         if (err) {
                             console.log(err);
                             res.status(400).send('<h4>Unexpecting error occured ' + err + '</h4>')
                         }
 
                     }
-                )
-
-                })
-
-                res.status(200).send(true);
+                );
 
             }
-        });
 
-    }
-
+                res.status(200).send(true);
+            });
+            };
 });
+
+
 
 app.post('/delete/product', urlencodedParser, async (req, res) => {
 
